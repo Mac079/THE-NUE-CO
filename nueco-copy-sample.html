@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Nue Co. Copy Sample — The Silk Pen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:          #f5f3ef;      /* Nue Co. exact warm off-white */
+      --bg-light:    #faf9f7;
+      --bg-dark:     #1a1917;      /* Nue Co. near-black */
+      --fg:          #1a1917;
+      --fg-mid:      #5c5850;
+      --fg-muted:    #9b9590;
+      --border:      #e0dbd3;
+      --border-dark: rgba(255,255,255,0.08);
+      --accent:      #1a1917;      /* Nue Co. uses ink, not gold, as primary accent */
+      --warm-white:  #faf9f7;
+      --sand:        #e8e3db;
+      --linen:       #f0ece5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    a, button, input, p, h1, h2, h3, h4, span, div {
+      min-width: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── ANNOUNCEMENT BAR ───────────────────────────────── */
+    .announcement {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.7);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 10px 24px;
+    }
+
+    .announcement a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-left a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      opacity: 0.65;
+      transition: opacity 0.18s;
+    }
+
+    .nav-left a:hover { opacity: 1; }
+
+    .nav-logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-right a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      color: var(--fg);
+      text-decoration: none;
+      opacity: 0.65;
+      transition: opacity 0.18s;
+    }
+
+    .nav-right a:hover { opacity: 1; }
+
+    .nav-bag {
+      position: relative;
+    }
+
+    .nav-bag-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      width: 15px;
+      height: 15px;
+      background: var(--fg);
+      color: var(--bg);
+      border-radius: 50%;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+    }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--bg-dark);
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.03;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-bg-text span {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(120px, 20vw, 260px);
+      font-weight: 500;
+      color: white;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
+
+    /* Subtle grain overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      align-items: end;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 6vw, 76px);
+      font-weight: 400;
+      line-height: 1.04;
+      color: #fff;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.5);
+      max-width: 440px;
+      margin-bottom: 44px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--bg-dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255,255,255,0.88);
+    }
+
+    .btn-ghost {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover {
+      color: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-bottom: 8px;
+    }
+
+    .hero-stat-row {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+    }
+
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .hero-stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .hero-stat-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 4px;
+    }
+
+    /* ── MARQUEE ────────────────────────────────────────── */
+    .marquee-rail {
+      background: var(--bg-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 26s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      padding: 0 40px;
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      color: rgba(255,255,255,0.12);
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── FRAGRANCE SECTION ──────────────────────────────── */
+    .fragrance-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+    }
+
+    .section-header-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+
+    .section-cta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--fg);
+      padding-bottom: 2px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .section-cta:hover { opacity: 1; }
+
+    .fragrance-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 56px;
+    }
+
+    .fragrance-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 3.5vw, 48px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+    }
+
+    .fragrance-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--fg-mid);
+      align-self: center;
+    }
+
+    /* Fragrance filter pills — mirrors the live site's "Emotion / Scent" filter */
+    .fragrance-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-group-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      align-self: center;
+      margin-right: 6px;
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+      margin: 0 8px;
+      align-self: center;
+    }
+
+    .filter-pill {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      color: var(--fg-mid);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.18s;
+      letter-spacing: 0.02em;
+    }
+
+    .filter-pill:hover,
+    .filter-pill.active {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+
+    /* Fragrance grid — 4 col, matching live site layout */
+    .fragrance-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .fragrance-card {
+      background: var(--bg);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .fragrance-card:hover .fragrance-card-img { transform: scale(1.03); }
+
+    .fragrance-card-img {
+      aspect-ratio: 3/4;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+
+    /* Abstract product shapes — replaces actual photos */
+    .fragrance-shape {
+      width: 55%;
+      aspect-ratio: 1/2.2;
+      border-radius: 100px 100px 80px 80px;
+    }
+
+    .shape-1 { background: linear-gradient(160deg, #c9b99a 0%, #8a7358 100%); }
+    .shape-2 { background: linear-gradient(160deg, #a3b8b4 0%, #5c8076 100%); }
+    .shape-3 { background: linear-gradient(160deg, #b8c4c1 0%, #6e8a7c 100%); }
+    .shape-4 { background: linear-gradient(160deg, #c4bdb5 0%, #8a7d72 100%); }
+
+    .fragrance-card-body {
+      padding: 18px 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .fragrance-emotion-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .emotion-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--fg-muted);
+    }
+
+    .emotion-tag + .emotion-tag::before {
+      content: '·';
+      margin-right: 8px;
+    }
+
+    .fragrance-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .fragrance-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14.5px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--fg-mid);
+      margin-bottom: 14px;
+    }
+
+    .fragrance-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fragrance-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--fg);
+    }
+
+    .fragrance-add {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--fg);
+      padding-bottom: 1px;
+      opacity: 0.4;
+      transition: opacity 0.18s;
+    }
+
+    .fragrance-add:hover { opacity: 1; }
+
+    /* ── NUE CODE (Science) SECTION ─────────────────────── */
+    .nuecode-section {
+      background: var(--bg-dark);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .nuecode-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .nuecode-text {
+      padding: 96px 80px 96px 40px;
+    }
+
+    .nuecode-overline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 24px;
+    }
+
+    .nuecode-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3vw, 46px);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .nuecode-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 48px;
+    }
+
+    .nuecode-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nuecode-pillar {
+      padding: 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .nuecode-pillar:last-child {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .pillar-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.12em;
+      padding-top: 2px;
+    }
+
+    .pillar-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 6px;
+    }
+
+    .pillar-copy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .nuecode-visual {
+      background: #272521;
+      position: relative;
+      overflow: hidden;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nuecode-visual-inner {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nuecode-logo-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.06);
+      letter-spacing: 0.06em;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .nuecode-circle {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .nuecode-circle-2 {
+      width: 280px;
+      height: 280px;
+      animation: rotate 20s linear infinite;
+    }
+
+    .nuecode-circle-3 {
+      width: 380px;
+      height: 380px;
+    }
+
+    .nuecode-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(80px, 12vw, 140px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+    }
+
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* ── METHODS SECTION ────────────────────────────────── */
+    .methods-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+    }
+
+    .methods-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+
+    .method-tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      padding: 12px 24px 12px 0;
+      margin-right: 32px;
+      border-bottom: 1.5px solid transparent;
+      cursor: pointer;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .method-tab.active,
+    .method-tab:hover {
+      color: var(--fg);
+      border-bottom-color: var(--fg);
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .method-card {
+      background: var(--bg);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .method-card-visual {
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .method-card-visual-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.5s ease;
+    }
+
+    .method-card:hover .method-card-visual-bg { transform: scale(1.04); }
+
+    .method-bg-gut {
+      background: linear-gradient(135deg, #e8e2d8 0%, #d4cfc4 60%, #c4bfb4 100%);
+    }
+
+    .method-bg-skin {
+      background: linear-gradient(135deg, #dde4df 0%, #c8d4cf 60%, #b8c4bc 100%);
+    }
+
+    .method-bg-body {
+      background: linear-gradient(135deg, #e2dcd4 0%, #d2cdc6 60%, #c0bbb4 100%);
+    }
+
+    .method-card-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Abstract product cluster */
+    .product-cluster {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .product-bottle {
+      border-radius: 60px 60px 40px 40px;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .pb-tall  { width: 32px; height: 90px; }
+    .pb-short { width: 40px; height: 64px; }
+    .pb-mid   { width: 36px; height: 76px; }
+
+    .method-card-body {
+      padding: 24px 28px 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .method-category {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 10px;
+    }
+
+    .method-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+
+    .method-copy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--fg-mid);
+      margin-bottom: 20px;
+    }
+
+    .method-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--fg);
+      padding-bottom: 2px;
+      opacity: 0.45;
+      transition: opacity 0.18s;
+    }
+
+    .method-link:hover { opacity: 1; }
+
+    /* ── FOUNDER SECTION ────────────────────────────────── */
+    .founder-section {
+      background: var(--linen);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .founder-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 96px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 96px;
+    }
+
+    .founder-quote-wrap {}
+
+    .founder-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 24px;
+    }
+
+    .founder-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--fg);
+      margin-bottom: 28px;
+    }
+
+    .founder-quote::before { content: '\201C'; }
+    .founder-quote::after  { content: '\201D'; }
+
+    .founder-byline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+
+    .founder-byline span {
+      display: block;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      font-size: 11px;
+      margin-top: 2px;
+      text-transform: none;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .founder-story {}
+
+    .founder-story-head {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .founder-story-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--fg-mid);
+      margin-bottom: 20px;
+    }
+
+    .founder-story-text strong {
+      font-weight: 400;
+      color: var(--fg);
+    }
+
+    /* ── NEWSLETTER ─────────────────────────────────────── */
+    .newsletter-section {
+      background: var(--bg-dark);
+      padding: 0;
+    }
+
+    .newsletter-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .newsletter-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+
+    .newsletter-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-headline em {
+      font-style: italic;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .newsletter-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.38);
+    }
+
+    .newsletter-form-wrap {}
+
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .newsletter-input-row {
+      display: flex;
+      gap: 0;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      padding: 15px 20px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(255,255,255,0.2);
+    }
+
+    .newsletter-input:focus {
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .newsletter-btn {
+      background: #fff;
+      color: var(--bg-dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px 24px;
+      border: 1px solid #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .newsletter-btn:hover { background: rgba(255,255,255,0.88); }
+
+    .newsletter-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SILK PEN ATTRIBUTION BAR ───────────────────────── */
+    .attribution-bar {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 14px 40px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .attr-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+
+    .attr-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--fg);
+    }
+
+    .attr-email {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--fg-muted);
+    }
+
+    /* ── COPY NOTES ─────────────────────────────────────── */
+    .copy-notes {
+      border-top: 2.5px solid var(--fg);
+      background: #f2ede6;
+      padding: 80px 40px;
+      max-width: 100%;
+    }
+
+    .notes-header {
+      max-width: 1400px;
+      margin: 0 auto 56px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .notes-badge {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8c4a32;
+      font-weight: 500;
+    }
+
+    .notes-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--fg);
+    }
+
+    .notes-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--fg-muted);
+      margin-left: auto;
+    }
+
+    .notes-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 80px;
+    }
+
+    .note-item h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .note-item p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--fg-mid);
+    }
+
+    /* ── BEFORE / AFTER ─────────────────────────────────── */
+    .before-after {
+      background: #f2ede6;
+      padding: 0 40px 80px;
+    }
+
+    .ba-label {
+      max-width: 1400px;
+      margin: 0 auto 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+
+    .ba-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .ba-card {
+      background: var(--bg-light);
+      padding: 32px 36px;
+    }
+
+    .ba-tag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      margin-bottom: 18px;
+    }
+
+    .ba-tag.before { background: var(--sand); color: var(--fg-muted); }
+    .ba-tag.after  { background: var(--bg-dark); color: rgba(255,255,255,0.7); }
+
+    .ba-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+
+    .ba-note {
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--fg-muted);
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg-dark);
+      padding: 80px 40px 40px;
+    }
+
+    .footer-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .footer-brand-col {}
+
+    .footer-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 16px;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.28);
+      line-height: 1.6;
+    }
+
+    .footer-col-head {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-legal {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .footer-silk-pen {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-left { display: none; }
+      .nav-logo { position: static; transform: none; }
+      .hero-content { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); }
+      .fragrance-intro { grid-template-columns: 1fr; gap: 20px; }
+      .fragrance-grid { grid-template-columns: 1fr 1fr; }
+      .nuecode-inner { grid-template-columns: 1fr; }
+      .nuecode-visual { min-height: 240px; }
+      .nuecode-text { padding: 64px 24px; }
+      .methods-grid { grid-template-columns: 1fr; }
+      .founder-inner { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+      .newsletter-inner { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+      .notes-grid { grid-template-columns: 1fr; gap: 40px; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .attribution-bar { flex-direction: column; gap: 4px; text-align: center; }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .announcement {
+        padding: 9px 18px;
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .nav-inner {
+        height: auto;
+        min-height: 58px;
+        padding: 14px 20px;
+        gap: 14px;
+      }
+
+      .nav-logo {
+        font-size: 12.5px;
+        letter-spacing: 0.1em;
+      }
+
+      .nav-right {
+        gap: 14px;
+      }
+
+      .nav-right a {
+        font-size: 11.5px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-bg-text span {
+        font-size: clamp(78px, 32vw, 130px);
+      }
+
+      .hero-content {
+        padding: 58px 22px 54px;
+        gap: 38px;
+      }
+
+      .hero-eyebrow,
+      .section-label,
+      .filter-group-label,
+      .nuecode-overline,
+      .method-category,
+      .founder-eyebrow,
+      .founder-story-head,
+      .newsletter-eyebrow,
+      .notes-badge,
+      .ba-label,
+      .footer-col-head {
+        font-size: 10px;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+      }
+
+      .hero-eyebrow {
+        margin-bottom: 16px;
+      }
+
+      .hero-headline {
+        font-size: clamp(39px, 11vw, 48px);
+        line-height: 1.08;
+        margin-bottom: 22px;
+        text-wrap: balance;
+      }
+
+      .hero-headline br,
+      .fragrance-headline br,
+      .nuecode-headline br,
+      .newsletter-headline br {
+        display: none;
+      }
+
+      .hero-sub {
+        max-width: none;
+        font-size: 17px;
+        line-height: 1.72;
+        margin-bottom: 30px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 14px 18px;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .btn-ghost {
+        align-self: center;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .fragrance-grid { grid-template-columns: 1fr; }
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .hero-stat-row {
+        padding-top: 18px;
+      }
+
+      .hero-stat-num {
+        font-size: 34px;
+      }
+
+      .hero-stat-label {
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .marquee-rail {
+        padding: 12px 0;
+      }
+
+      .marquee-item {
+        font-size: 10px;
+        padding: 0 24px;
+      }
+
+      .methods-section,
+      .fragrance-section { padding: 58px 22px 48px; }
+
+      .section-header-row {
+        display: block;
+        margin-bottom: 34px;
+      }
+
+      .section-cta {
+        display: inline-block;
+        margin-top: 12px;
+        line-height: 1.45;
+      }
+
+      .fragrance-intro {
+        gap: 18px;
+        margin-bottom: 34px;
+      }
+
+      .fragrance-headline,
+      .nuecode-headline,
+      .newsletter-headline {
+        font-size: clamp(31px, 9vw, 40px);
+        line-height: 1.12;
+        text-wrap: balance;
+      }
+
+      .fragrance-body,
+      .nuecode-body,
+      .newsletter-body,
+      .founder-story-text {
+        font-size: 17px;
+        line-height: 1.72;
+      }
+
+      .fragrance-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 0 -22px 34px;
+        padding: 0 22px 24px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .fragrance-filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-group-label,
+      .filter-divider,
+      .filter-pill {
+        flex: 0 0 auto;
+      }
+
+      .filter-pill {
+        padding: 7px 13px;
+      }
+
+      .fragrance-card-img {
+        aspect-ratio: 4 / 5;
+      }
+
+      .fragrance-card-body {
+        padding: 18px 18px 22px;
+      }
+
+      .fragrance-desc {
+        font-size: 15.5px;
+        line-height: 1.65;
+      }
+
+      .nuecode-text {
+        padding: 58px 22px;
+      }
+
+      .nuecode-body {
+        margin-bottom: 34px;
+      }
+
+      .nuecode-pillar {
+        grid-template-columns: 42px 1fr;
+        gap: 12px;
+        padding: 20px 0;
+      }
+
+      .pillar-name {
+        font-size: 11.5px;
+        line-height: 1.45;
+      }
+
+      .pillar-copy {
+        font-size: 15.5px;
+        line-height: 1.65;
+      }
+
+      .nuecode-visual {
+        min-height: 260px;
+      }
+
+      .nuecode-circle {
+        width: 140px;
+        height: 140px;
+      }
+
+      .nuecode-circle-2 {
+        width: 220px;
+        height: 220px;
+      }
+
+      .nuecode-circle-3 {
+        width: 300px;
+        height: 300px;
+      }
+
+      .nuecode-num {
+        font-size: 78px;
+      }
+
+      .methods-nav {
+        overflow-x: auto;
+        margin: 0 -22px 36px;
+        padding: 0 22px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .methods-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .method-tab {
+        flex: 0 0 auto;
+        margin-right: 24px;
+        padding-right: 0;
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .method-card-body {
+        padding: 22px 20px 28px;
+      }
+
+      .method-name {
+        font-size: 24px;
+        line-height: 1.18;
+      }
+
+      .method-copy {
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .founder-inner {
+        padding: 56px 22px;
+        gap: 38px;
+      }
+
+      .founder-quote {
+        font-size: clamp(24px, 7vw, 30px);
+        line-height: 1.35;
+      }
+
+      .newsletter-inner {
+        padding: 58px 22px;
+        gap: 34px;
+      }
+
+      .newsletter-input-row {
+        flex-direction: column;
+      }
+
+      .newsletter-input {
+        width: 100%;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        border-bottom: none;
+        font-size: 16px;
+        padding: 15px 16px;
+      }
+
+      .newsletter-btn {
+        width: 100%;
+        padding: 15px 16px;
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .newsletter-note {
+        font-size: 11px;
+      }
+
+      .attribution-bar {
+        padding: 16px 22px;
+      }
+
+      .copy-notes,
+      .before-after { padding-left: 22px; padding-right: 22px; }
+
+      .copy-notes {
+        padding-top: 52px;
+        padding-bottom: 52px;
+      }
+
+      .notes-header {
+        display: block;
+        margin-bottom: 34px;
+      }
+
+      .notes-title {
+        display: block;
+        font-size: 28px;
+        line-height: 1.16;
+        margin-top: 10px;
+      }
+
+      .notes-sub {
+        display: block;
+        margin: 8px 0 0;
+      }
+
+      .notes-grid {
+        gap: 30px;
+      }
+
+      .note-item h4 {
+        font-size: 10px;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+      }
+
+      .note-item p {
+        font-size: 16px;
+        line-height: 1.72;
+      }
+
+      .before-after {
+        padding-bottom: 54px;
+      }
+
+      .ba-card {
+        padding: 24px 20px;
+      }
+
+      .ba-tag {
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+      }
+
+      .ba-text {
+        font-size: 16.5px;
+        line-height: 1.68;
+      }
+
+      .ba-note {
+        font-size: 11px;
+        line-height: 1.6;
+      }
+
+      footer {
+        padding: 56px 22px 32px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-bottom: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .footer-legal,
+      .footer-silk-pen,
+      .attr-email {
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 10px;
+      }
+
+      .nav-logo {
+        order: 1;
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-right {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-right > a:first-child {
+        display: none;
+      }
+
+      .hero-headline {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement">
+    New: The Nostalgia Collection — functional fragrances built around the science of comfort.&nbsp;
+    <a href="#">Explore now →</a>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <ul class="nav-left">
+        <li><a href="#">Shop All</a></li>
+        <li><a href="#">Fragrances</a></li>
+        <li><a href="#">Methods</a></li>
+        <li><a href="#">Journal</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <a href="#" class="nav-logo">The Nue Co.</a>
+      <div class="nav-right">
+        <a href="#">Account</a>
+        <a href="#" class="nav-bag">
+          Bag
+          <span class="nav-bag-count">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-text">
+      <span>Feeling Well</span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-left-col">
+        <p class="hero-eyebrow">The Art of Feeling Well</p>
+        <h1 class="hero-headline">
+          Science that<br>
+          works with<br>
+          <em>your body.</em><br>
+          Not against it.
+        </h1>
+        <p class="hero-sub">
+          Jules Miller grew up in a Colombian family rooted in plant-based healing,
+          shaped by a grandfather who spent his career as a chemist at Cambridge.
+          She built The Nue Co. to share that inheritance — products that are both
+          beautiful and effective, built on the belief that how you feel is worth
+          taking seriously.
+        </p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Explore The Methods</a>
+          <a href="#" class="btn-ghost">Our Science</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">200+</div>
+          <div class="hero-stat-label">Ingredients we banned</div>
+          <div class="hero-stat-note">Before we formulated a single product.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">50%+</div>
+          <div class="hero-stat-label">Organic or community-sourced</div>
+          <div class="hero-stat-note">Across every formula we make.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">$35.9M</div>
+          <div class="hero-stat-label">Raised to rethink wellness</div>
+          <div class="hero-stat-note">Because the industry needed it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-rail">
+    <div class="marquee-track">
+      <span class="marquee-item">Endocrine Safe</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Clinically Studied</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Responsibly Sourced</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">200+ Banned Ingredients</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Whole Body Health</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Non-GMO</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Free From Synthetic Fixatives</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Endocrine Safe</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Clinically Studied</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Responsibly Sourced</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">200+ Banned Ingredients</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Whole Body Health</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Non-GMO</span>
+      <span class="marquee-item marquee-dot">·</span>
+      <span class="marquee-item">Free From Synthetic Fixatives</span>
+      <span class="marquee-item marquee-dot">·</span>
+    </div>
+  </div>
+
+  <!-- FUNCTIONAL FRAGRANCES -->
+  <section class="fragrance-section">
+    <div class="section-header-row">
+      <span class="section-label">Functional Fragrances</span>
+      <a href="#" class="section-cta">Shop All Fragrances</a>
+    </div>
+
+    <div class="fragrance-intro">
+      <h2 class="fragrance-headline">
+        Scent that shifts<br> something.
+      </h2>
+      <p class="fragrance-body">
+        Fragrance is one of the fastest pathways to the limbic brain. Every Nue Co.
+        fragrance is crafted with world-class perfumers to work with your nervous
+        system, not just sit on your skin. Endocrine-safe, non-toxic, and designed
+        to move you.
+      </p>
+    </div>
+
+    <!-- Filter bar mirrors live site -->
+    <div class="fragrance-filters">
+      <span class="filter-group-label">Emotion</span>
+      <button class="filter-pill active">Comfort</button>
+      <button class="filter-pill">Grounding</button>
+      <button class="filter-pill">De-stress</button>
+      <button class="filter-pill">Relax</button>
+      <button class="filter-pill">Energy</button>
+      <button class="filter-pill">Connect</button>
+      <div class="filter-divider"></div>
+      <span class="filter-group-label">Scent</span>
+      <button class="filter-pill">Gourmand</button>
+      <button class="filter-pill">Wood</button>
+      <button class="filter-pill">Fresh</button>
+      <button class="filter-pill">Musk</button>
+      <button class="filter-pill">Spicy</button>
+    </div>
+
+    <div class="fragrance-grid">
+      <div class="fragrance-card">
+        <div class="fragrance-card-img">
+          <div class="fragrance-shape shape-1"></div>
+        </div>
+        <div class="fragrance-card-body">
+          <div class="fragrance-emotion-tags">
+            <span class="emotion-tag">Comfort</span>
+            <span class="emotion-tag">Grounding</span>
+          </div>
+          <div class="fragrance-name">Otherwhere</div>
+          <p class="fragrance-desc">The now, shaped by everything before. Caramel, oud, sandalwood. Smells like skin, but better.</p>
+          <div class="fragrance-price-row">
+            <span class="fragrance-price">$125</span>
+            <a href="#" class="fragrance-add">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+      <div class="fragrance-card">
+        <div class="fragrance-card-img">
+          <div class="fragrance-shape shape-2"></div>
+        </div>
+        <div class="fragrance-card-body">
+          <div class="fragrance-emotion-tags">
+            <span class="emotion-tag">Calm</span>
+            <span class="emotion-tag">De-stress</span>
+          </div>
+          <div class="fragrance-name">Water Therapy</div>
+          <p class="fragrance-desc">Fresh water and aromatic salt. The feeling of the sea before you can see it.</p>
+          <div class="fragrance-price-row">
+            <span class="fragrance-price">$125</span>
+            <a href="#" class="fragrance-add">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+      <div class="fragrance-card">
+        <div class="fragrance-card-img">
+          <div class="fragrance-shape shape-3"></div>
+        </div>
+        <div class="fragrance-card-body">
+          <div class="fragrance-emotion-tags">
+            <span class="emotion-tag">Relax</span>
+            <span class="emotion-tag">Calming</span>
+          </div>
+          <div class="fragrance-name">Forest Lungs</div>
+          <p class="fragrance-desc">Woods, aromatic depth. The breath you take when you finally stop moving.</p>
+          <div class="fragrance-price-row">
+            <span class="fragrance-price">$125</span>
+            <a href="#" class="fragrance-add">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+      <div class="fragrance-card">
+        <div class="fragrance-card-img">
+          <div class="fragrance-shape shape-4"></div>
+        </div>
+        <div class="fragrance-card-body">
+          <div class="fragrance-emotion-tags">
+            <span class="emotion-tag">Connection</span>
+            <span class="emotion-tag">Comfort</span>
+          </div>
+          <div class="fragrance-name">Us</div>
+          <p class="fragrance-desc">Musk and warm vetiver. The scent of someone you trust. Wear it alone or share it.</p>
+          <div class="fragrance-price-row">
+            <span class="fragrance-price">$125</span>
+            <a href="#" class="fragrance-add">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUE CODE SECTION -->
+  <section class="nuecode-section">
+    <div class="nuecode-inner">
+      <div class="nuecode-text">
+        <p class="nuecode-overline">The Nue Co.de</p>
+        <h2 class="nuecode-headline">
+          Our method for<br>
+          making things<br>that actually work.
+        </h2>
+        <p class="nuecode-body">
+          There's no universal definition of "clean." So we created our own:
+          formulas free from endocrine disruptors, synthetic fixatives, and
+          unnecessary fillers. Products that work with your body's chemistry,
+          not in spite of it.
+        </p>
+        <div class="nuecode-pillars">
+          <div class="nuecode-pillar">
+            <span class="pillar-num">01</span>
+            <div>
+              <div class="pillar-name">Research</div>
+              <p class="pillar-copy">We work at the forefront of innovation, drawing on the latest advances in olfactory chemistry and neuroscent technology.</p>
+            </div>
+          </div>
+          <div class="nuecode-pillar">
+            <span class="pillar-num">02</span>
+            <div>
+              <div class="pillar-name">Ingredients</div>
+              <p class="pillar-copy">Every ingredient chosen for a proven benefit. Over 50% organic or community-sourced. Nothing unnecessary, nothing harmful.</p>
+            </div>
+          </div>
+          <div class="nuecode-pillar">
+            <span class="pillar-num">03</span>
+            <div>
+              <div class="pillar-name">Safety</div>
+              <p class="pillar-copy">Over 200 ingredients banned from our formulas, including phthalates, polycyclic musks, parabens, and hexanes. View the full list.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nuecode-visual">
+        <div class="nuecode-circle nuecode-circle"></div>
+        <div class="nuecode-circle nuecode-circle-2"></div>
+        <div class="nuecode-circle nuecode-circle-3"></div>
+        <div class="nuecode-visual-inner">
+          <span class="nuecode-logo-word">The</span>
+          <span class="nuecode-logo-word">Nue</span>
+          <span class="nuecode-logo-word">Co.de</span>
+        </div>
+        <div class="nuecode-num">200</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE METHODS -->
+  <section class="methods-section">
+    <div class="section-header-row">
+      <span class="section-label">For Whole Body Health</span>
+      <a href="#" class="section-cta">Explore All Methods</a>
+    </div>
+
+    <div class="methods-nav">
+      <span class="method-tab active">Body Method</span>
+      <span class="method-tab">Gut Method</span>
+      <span class="method-tab">Skin Method</span>
+      <span class="method-tab">Fragrances</span>
+    </div>
+
+    <div class="methods-grid">
+      <div class="method-card">
+        <div class="method-card-visual">
+          <div class="method-card-visual-bg method-bg-gut"></div>
+          <div class="method-card-inner">
+            <div class="product-cluster">
+              <div class="product-bottle pb-short"></div>
+              <div class="product-bottle pb-tall"></div>
+              <div class="product-bottle pb-mid"></div>
+            </div>
+          </div>
+        </div>
+        <div class="method-card-body">
+          <p class="method-category">Gut Method</p>
+          <h3 class="method-name">Start here. Most things improve.</h3>
+          <p class="method-copy">Your gut affects your skin, your sleep, your mood, and your immunity. Our bestselling duo, clinically formulated to ease bloating and support the foundation of your overall health.</p>
+          <a href="#" class="method-link">Shop Gut Method</a>
+        </div>
+      </div>
+      <div class="method-card">
+        <div class="method-card-visual">
+          <div class="method-card-visual-bg method-bg-skin"></div>
+          <div class="method-card-inner">
+            <div class="product-cluster">
+              <div class="product-bottle pb-mid"></div>
+              <div class="product-bottle pb-short"></div>
+              <div class="product-bottle pb-tall"></div>
+            </div>
+          </div>
+        </div>
+        <div class="method-card-body">
+          <p class="method-category">Skin Method</p>
+          <h3 class="method-name">Fed from the inside. Visible outside.</h3>
+          <p class="method-copy">Skin that is fed from the inside shows differently than skin that is treated from the outside. Clinically proven formulas that work at the root, for visible results that last.</p>
+          <a href="#" class="method-link">Shop Skin Method</a>
+        </div>
+      </div>
+      <div class="method-card">
+        <div class="method-card-visual">
+          <div class="method-card-visual-bg method-bg-body"></div>
+          <div class="method-card-inner">
+            <div class="product-cluster">
+              <div class="product-bottle pb-tall"></div>
+              <div class="product-bottle pb-mid"></div>
+              <div class="product-bottle pb-short"></div>
+            </div>
+          </div>
+        </div>
+        <div class="method-card-body">
+          <p class="method-category">Body Method</p>
+          <h3 class="method-name">With your body's rhythms, day and night.</h3>
+          <p class="method-copy">Stress, sleep, immunity. Liquid and transdermal formulas designed to work with your body's natural rhythms. Not in spite of them.</p>
+          <a href="#" class="method-link">Shop Body Method</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER SECTION -->
+  <div class="founder-section">
+    <div class="founder-inner">
+      <div class="founder-quote-wrap">
+        <p class="founder-eyebrow">Jules Miller — Founder & CEO</p>
+        <p class="founder-quote">
+          I started The Nue Co. to share that perspective: helping people
+          connect with their bodies through products and rituals that are
+          both beautiful and effective.
+        </p>
+        <div class="founder-byline">
+          Jules Miller
+          <span>Brooklyn, New York</span>
+        </div>
+      </div>
+      <div class="founder-story">
+        <p class="founder-story-head">Where it began</p>
+        <p class="founder-story-text">
+          Jules grew up half-Colombian in England, raised in a family that treated
+          wellness as a practice, not an industry. Her grandfather spent his career
+          as a chemist at Cambridge, devoting decades to supplement research.
+          That inheritance shaped everything The Nue Co. became: <strong>the belief
+          that what you put in and on your body should be held to a higher
+          standard.</strong>
+        </p>
+        <p class="founder-story-text">
+          "Clean" had no single definition. So Jules created one: formulas free from
+          endocrine disruptors, synthetic fixatives, and unnecessary fillers.
+          Products that work with your body's chemistry, not in spite of it.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <div class="newsletter-left">
+        <p class="newsletter-eyebrow">The Nue Co. Community</p>
+        <h2 class="newsletter-headline">
+          Wellness worth<br>
+          <em>paying attention to.</em>
+        </h2>
+        <p class="newsletter-body">
+          New formulas, the science behind the ingredients, and dispatches from Jules
+          on what we are working on next. Written when there is something worth saying.
+          Never noise.
+        </p>
+      </div>
+      <div class="newsletter-form-wrap">
+        <div class="newsletter-form">
+          <div class="newsletter-input-row">
+            <input type="email" class="newsletter-input" placeholder="Your email address">
+            <button class="newsletter-btn">Stay In The Loop</button>
+          </div>
+          <p class="newsletter-note">
+            No clutter, no offers for the sake of it. Just the good stuff.
+            Unsubscribe whenever you like.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATTRIBUTION BAR -->
+  <div class="attribution-bar">
+    <span class="attr-label">Copy sample prepared for</span>
+    <span class="attr-brand">The Silk Pen</span>
+    <span class="attr-email">hello@thesilkpen.in</span>
+  </div>
+
+  <!-- COPY NOTES -->
+  <section class="copy-notes">
+    <div class="notes-header">
+      <span class="notes-badge">The Silk Pen</span>
+      <span class="notes-title">Copywriter's Notes</span>
+      <span class="notes-sub">What changed and why</span>
+    </div>
+    <div class="notes-grid">
+      <div class="note-item">
+        <h4>The Hero</h4>
+        <p>
+          The live homepage opens with "Your Mood Rising" — a fragrance campaign
+          line, not a brand statement. A first-time visitor has no idea who
+          The Nue Co. is or why it is different from every other wellness brand.
+          The rewrite leads with Jules's story: a Colombian family rooted in
+          plant-based healing, a grandfather who devoted his career to supplement
+          research at Cambridge. That origin is The Nue Co.'s strongest differentiator
+          and it exists nowhere near the homepage. "Science that works with your
+          body. Not against it." is a direct translation of the brand's founding
+          philosophy into copy.
+        </p>
+      </div>
+      <div class="note-item">
+        <h4>The Founder Strip</h4>
+        <p>
+          Jules's founder story lives on the About page. It is one of the most
+          compelling founder stories in the wellness industry: half-Colombian,
+          shaped by a grandfather chemist at Cambridge, started a brand because
+          the industry had no standard worth trusting. That story converts a
+          skeptical wellness consumer into a loyal one. This rewrite surfaces
+          it as a dedicated homepage moment rather than letting it sit behind
+          a navigation click most visitors never take.
+        </p>
+      </div>
+      <div class="note-item">
+        <h4>The Fragrance Copy</h4>
+        <p>
+          The product names are extraordinary. Otherwhere. Forest Lungs. Water Therapy. Us.
+          These are not supplement names. They are emotional states. Yet the product
+          descriptions on the homepage barely expand on them. "Gourmand, Smoke,
+          Comfort, Grounding" is a taxonomy label, not a feeling. This rewrite
+          gives each fragrance a one-line copy moment that earns the name.
+          "The breath you take when you finally stop moving" for Forest Lungs.
+          "The feeling of the sea before you can see it" for Water Therapy.
+          The names already did the heavy lifting. The copy just needs to land the feeling.
+        </p>
+      </div>
+      <div class="note-item">
+        <h4>The Newsletter Capture</h4>
+        <p>
+          "Stay In The Loop. Sign up for all the latest info and offers in your inbox."
+          is the current footer newsletter copy. For a brand with $35.9M raised,
+          a philosophy of whole body health, and a founder who writes with genuine
+          authority on wellness, "latest info and offers" is a significant mismatch
+          in both ambition and voice. The rewrite positions the newsletter as a
+          dispatch from Jules on what The Nue Co. is working on next.
+          "Written when there is something worth saying. Never noise." is a direct
+          reflection of how the brand thinks about its formulas: nothing unnecessary,
+          everything intentional.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <div class="before-after">
+    <p class="ba-label">Before and After — The Newsletter Capture</p>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <span class="ba-tag before">Live copy</span>
+        <p class="ba-text">
+          "Stay In The Loop. Sign up for all the latest info and offers in your inbox."
+        </p>
+        <div class="ba-note">
+          Generic utility language that could belong to any brand in any category.
+          No voice, no philosophy, no reason to care.
+        </div>
+      </div>
+      <div class="ba-card">
+        <span class="ba-tag after">Rewrite</span>
+        <p class="ba-text">
+          "Wellness worth paying attention to. New formulas, the science behind the
+          ingredients, and dispatches from Jules on what we are working on next.
+          Written when there is something worth saying. Never noise."
+        </p>
+        <div class="ba-note">
+          Positions the newsletter as a direct line to Jules and the science behind
+          the brand. "Never noise" mirrors the brand's formula philosophy: nothing
+          unnecessary, everything intentional.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-logo">The Nue Co.</div>
+        <p class="footer-tagline">Take great care.</p>
+      </div>
+      <div>
+        <p class="footer-col-head">About</p>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Store Locator</a></li>
+          <li><a href="#">The Journal</a></li>
+          <li><a href="#">Community</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Shop</p>
+        <ul class="footer-links">
+          <li><a href="#">Shop All</a></li>
+          <li><a href="#">Fragrances</a></li>
+          <li><a href="#">Gut Method</a></li>
+          <li><a href="#">Skin Method</a></li>
+          <li><a href="#">Body Method</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Follow</p>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-legal">© 2026 The Nue Co. All rights reserved.</span>
+      <span class="footer-silk-pen">Copy sample by The Silk Pen</span>
+    </div>
+  </footer>
+
+</body>
+</html>
